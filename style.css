@@ -1,0 +1,8 @@
+* {
+    margin: 0;
+}
+
+svg path {
+    stroke: #333;
+    stroke-width: 5px;
+}
