@@ -5,6 +5,29 @@
 svg path {
     fill: none;
     stroke: #333;
-    stroke-width: 5px;
+    stroke-width: 3px;
 }
 
+
+#site-container {
+    display: grid;
+    grid-template-columns: 240px auto;
+}
+
+#navbar { 
+    height: 100vh;
+    width: 240px;
+    background-color: #ddd;
+}
+
+#draw-area {
+    width: 100%;
+}
+
+#AuthButton {
+    padding: 8px 20px;
+    background-color: green;
+    color: white;
+    border-radius: 6px;
+    border: none;
+}
