@@ -5,28 +5,29 @@ let state = 0;
 let lines = [];
 let isLoggedIn = false;
 const authButton = document.getElementById("AuthButton");
+let targetElement = document.getElementById("draw-area");
 
 let createSVG = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-createSVG.setAttribute("width", window.innerWidth);
-createSVG.setAttribute("height", window.innerHeight);
-document.getElementsByTagName("body")[0].appendChild(createSVG);
+createSVG.setAttribute("width", targetElement.scrollWidth);
+createSVG.setAttribute("height", targetElement.scrollHeight);
+targetElement.appendChild(createSVG);
 
 
 window.addEventListener("mousedown", function(e){
     if (state == 0) {
         createPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
         createSVG.appendChild(createPath);
-        line.x1 = e.pageX;
-        line.y1 = e.pageY;
+        line.x1 = e.offsetX;
+        line.y1 = e.offsetY;
         state = 1;
     } 
 })
 
 window.addEventListener("mousemove", function(e){
     if (state == 1){
-        createPath.setAttribute("d", "M " + line.x1 + " " + line.y1 + " L " + e.pageX + " " + e.pageY);
-        line.x2 = e.pageX;
-        line.y2 = e.pageY;
+        createPath.setAttribute("d", "M " + line.x1 + " " + line.y1 + " L " + e.offsetX + " " + e.offsetY);
+        line.x2 = e.offsetX;
+        line.y2 = e.offsetY;
     }
 })
 
@@ -85,6 +86,14 @@ function saveGraph() {
 }
 
 document.getElementById("SaveGraph").addEventListener("click", saveGraph);
+
+document.getElementById("RemoveGraph").addEventListener("click", () => {
+    createSVG.remove();
+});
+
+document.getElementById("RestoreGraph").addEventListener("click", () => {
+    targetElement.appendChild(createSVG);
+});
 
 authButton.addEventListener("click", () => {
     isLoggedIn ? logout() : login();
